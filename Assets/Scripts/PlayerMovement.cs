@@ -39,7 +39,11 @@ public class PlayerMovement : NetworkBehaviour
         direction = new Vector3(horMove, 0, vertMove);
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawCube(transform.position, new Vector3(5, 5, 5));
+    }
     private void FixedUpdate()
     {
         if (!isLocalPlayer)
