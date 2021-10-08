@@ -23,12 +23,11 @@ public class Patrol : MonoBehaviour
         {
             currentWPIndex = 0;
         }
-        print(waypoints[currentWPIndex]);
         return waypoints[currentWPIndex];
     }
 
     // Update is called once per frame
-    void Update()
+    public void PatrolWaypoint()
     {
         
        if (Vector3.Distance(transform.position, currentWP.transform.position) < WP_TRESHOLD)
