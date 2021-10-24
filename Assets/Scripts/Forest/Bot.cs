@@ -40,6 +40,7 @@ public class Bot : MonoBehaviour
 
     public void Seek(Vector3 location)
     {
+        print("seek");
         agent.SetDestination(location);
     }
 
@@ -51,6 +52,7 @@ public class Bot : MonoBehaviour
 
     public void Pursue()
     {
+        print("pursue");
         Vector3 targetDir = target.transform.position - this.transform.position;
 
          float relativeHeading = Vector3.Angle(this.transform.forward, this.transform.TransformVector(target.transform.forward));
@@ -78,6 +80,7 @@ public class Bot : MonoBehaviour
     Vector3 wanderTarget = Vector3.zero;
     public void Wander()
     {
+        print("wander");
         float wanderRadius = 10;
         float wanderDistance = 10;
         float wanderJitter = 1;
@@ -149,6 +152,7 @@ public class Bot : MonoBehaviour
 
     public bool CanSeeTarget()
     {
+        print("see");
         RaycastHit raycastInfo;
         Vector3 targetXZPos = new Vector3(target.transform.position.x, 1.5f, target.transform.position.z);
         Vector3 thisXZPos = new Vector3(transform.position.x, 1.5f, transform.position.z);
@@ -156,7 +160,7 @@ public class Bot : MonoBehaviour
         Vector3 rayToTarget = targetXZPos - thisXZPos;
         if (Physics.Raycast(this.transform.position, rayToTarget, out raycastInfo))
         {
-            if (raycastInfo.transform.gameObject.tag == "Player")
+            if (raycastInfo.transform.gameObject.tag == "Player") ;
                 return true;
         }
         return false;

@@ -92,16 +92,16 @@ public class NavPlayerMovement : MonoBehaviour
         if(other.CompareTag("Hazard"))
         {
 
-            lookTarget.position = other.transform.position;
+            //lookTarget.position = other.transform.position;
             StartCoroutine(LookAndLookAway(lookTarget.position, other.transform.position));
         }
     }
-    private IEnumerator LookAndLookAway(Vector3 targetPosition, Vector3 hazardPosition)
+    private IEnumerator LookAndLookAway(Vector3 targetPos, Vector3 hazardPos)
     {
-        Vector3 targetDir = targetPosition - transform.position;
-        Vector3 hazardDir = hazardPosition - transform.position;
+        Vector3 targetDir = targetPos - transform.position;
+        Vector3 hazardDir = hazardPos - transform.position;
         
-        float angle = Vector2.SignedAngle(new Vector2(targetPosition.x, targetPosition.z), new Vector2(hazardPosition.x, hazardPosition.z));
+        float angle = Vector2.SignedAngle(new Vector2(targetPos.x, targetPos.z), new Vector2(hazardPos.x, hazardPos.z));
 
         const int INTERVALS = 20;
         const float INTERVAL = 0.5f / INTERVALS;
@@ -110,7 +110,8 @@ public class NavPlayerMovement : MonoBehaviour
         
         for (int i=0; i < INTERVALS; i++)
         {
-            lookTarget.RotateAround(transform.position, Vector3.up, -angleInterval);
+            lookTarget.RotateAround(transform.position, Vector3.up, angleInterval);
+            
             yield return new WaitForSeconds(INTERVAL);
             
         }
@@ -118,6 +119,7 @@ public class NavPlayerMovement : MonoBehaviour
         for (int i = 0; i < INTERVALS; i++)
         {
             lookTarget.RotateAround(transform.position, Vector3.up, angleInterval);
+            
             yield return new WaitForSeconds(INTERVAL);
 
         }
