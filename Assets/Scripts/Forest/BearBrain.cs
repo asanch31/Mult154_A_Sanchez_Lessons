@@ -13,6 +13,7 @@ public class BearBrain : MonoBehaviour
     private Bot bot;
     private Vector3 hivePos;
     private bool hiveDropped = false;
+    private bool isStopped = false;
 
 
     // Start is called before the first frame update
@@ -33,26 +34,40 @@ public class BearBrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hiveDropped)
+        if (!isStopped)
         {
-            
-            bot.Seek(hivePos);
-        }
-        else
-        {
+            if (hiveDropped)
+            {
 
-            if (bot.CanTargetSeeMe())
-            {
-                bot.Evade();
-            }
-            else if (bot.CanSeeTarget())
-            {
-                bot.Pursue();
+                bot.Seek(hivePos);
             }
             else
             {
-                bot.Wander();
+
+                if (bot.CanTargetSeeMe())
+                {
+                    
+                    bot.Evade();
+                }
+                else if (bot.CanSeeTarget())
+                {
+                    bot.Pursue();
+                }
+                else
+                {
+                    bot.Wander();
+                }
             }
+        }
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Player"))
+        {            
+            bot.Stop();
+            isStopped = true;
+           
         }
     }
 }
