@@ -110,7 +110,7 @@ public class NavPlayerMovement : MonoBehaviour
         
         for (int i=0; i < INTERVALS; i++)
         {
-            lookTarget.RotateAround(transform.position, Vector3.up, angleInterval);
+            lookTarget.RotateAround(transform.position, Vector3.up, -angleInterval);
             
             yield return new WaitForSeconds(INTERVAL);
             
