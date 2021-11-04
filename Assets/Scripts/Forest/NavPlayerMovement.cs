@@ -101,7 +101,7 @@ public class NavPlayerMovement : MonoBehaviour
         Vector3 targetDir = targetPos - transform.position;
         Vector3 hazardDir = hazardPos - transform.position;
         
-        float angle = Vector2.SignedAngle(new Vector2(targetPos.x, targetPos.z), new Vector2(hazardPos.x, hazardPos.z));
+        float angle = Vector2.SignedAngle(new Vector2(targetDir.x, targetDir.z), new Vector2(hazardDir.x, hazardDir.z));
 
         const int INTERVALS = 20;
         const float INTERVAL = 0.5f / INTERVALS;
