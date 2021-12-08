@@ -10,7 +10,9 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 direction = Vector3.zero;
     public float speed = 10.0f;
     public GameObject[] spawnPoints = null;
-    private Dictionary<Item.VegetableType, int> ItemInvetory = new Dictionary<Item.VegetableType, int>();
+    
+    
+    //private Dictionary<Item.VegetableType, int> ItemInvetory = new Dictionary<Item.VegetableType, int>();
 
     // Start is called before the first frame update
     void Start()

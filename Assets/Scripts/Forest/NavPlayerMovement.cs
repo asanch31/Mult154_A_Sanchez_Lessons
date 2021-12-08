@@ -5,7 +5,7 @@ using UnityEngine;
 public class NavPlayerMovement : MonoBehaviour
 {
     public float speed = 10.0f;
-    public float rotationSpeed = 100.0f;
+    public float rotationSpeed = 30.0f;
     Rigidbody rgBody = null;
     float trans = 0;
     float rotate = 0;
@@ -59,8 +59,10 @@ public class NavPlayerMovement : MonoBehaviour
         rgBody.MoveRotation(Quaternion.Euler(rot));
         rotate = 0; 
         
-        Vector3 move = transform.forward * trans;
-        rgBody.velocity = move * speed * Time.deltaTime;
+        Vector3 move = transform.forward * trans*speed;
+        move.y = rgBody.velocity.y;
+        rgBody.velocity = move;//*  Time.deltaTime;
+
         trans = 0; 
     }
 
