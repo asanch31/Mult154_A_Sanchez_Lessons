@@ -132,7 +132,7 @@ public class ForestState : PlayerState
 
     public override void Start()
     {
-        player.transform.position = new Vector3(-20, 0.5f, -10);
+        player.transform.position = new Vector3(-20, 1f, -10);
         Transform rabbit = player.transform.Find("Rabbit");
         rabbit.transform.localEulerAngles = Vector3.zero;
         rabbit.transform.localScale = Vector3.one;
@@ -216,6 +216,13 @@ public class ForestState : PlayerState
             //lookTarget.position = other.transform.position;
             thisObject.StartCoroutine(LookAndLookAway(lookTarget.position, other.transform.position));
         }
+
+        if (other.CompareTag("Exit"))
+        {
+            NetworkManager networkManager =
+                 GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+            networkManager.ServerChangeScene("EndScene");
+        }
     }
 
     public override void OnTriggerExit(Collider other)
@@ -259,24 +266,33 @@ public class ForestState : PlayerState
 public class PlayerContext : NetworkBehaviour
 {
     PlayerState currentState;
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
         if (!isLocalPlayer) return;
 
-        if(SceneManager.GetActiveScene().name == "RiverLevel")
+        if (SceneManager.GetActiveScene().name == "RiverLevel")
         {
             currentState = new RiverState(this);
         }
 
-        if (SceneManager.GetActiveScene().name == "ForestLevel")
+        else if (SceneManager.GetActiveScene().name == "ForestLevel")
         {
             currentState = new ForestState(this);
 
         }
-        currentState.Start();
+
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
+        if (currentState != null)
+        {
+            currentState.Start();
+        }
     }
 
     // Update is called once per frame
